@@ -2,24 +2,60 @@
 <html ng-app='store'>
   <head>
     <title>Whiskey Store</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <h1>Whiskey Store</h1>
     <h2>Mark's first Angular app</h2>
-    <article ng-controller="StoreController as store">
-      <section ng-repeat='whiskey in store.whiskeys'>
+    <div ng-controller="StoreController as store">
+      <article ng-repeat='whiskey in store.whiskeys'>
         <h1>{{whiskey.name}}</h1>
         <h2>{{whiskey.price | currency}}</h2>
         <button ng-show='whiskey.canPurchase'>Buy now!</button>
-        <div ng-controller="PanelController as panel">
-          <a href ng-click="panel.selectTab(1)">Description</a>
-          <a href ng-click="panel.selectTab(2)">Review</a>
-          <p ng-show="panel.isSelected(1)">{{whiskey.description}}</p>
-          <p ng-show="panel.isSelected(2)">{{whiskey.review}}
-        </div>
-      </section
 
-    </article>
+        <!-- "Panel" to display Description/reviews -->
+        <section ng-controller="PanelController as panel">
+          <a href ng-click="panel.selectTab(1)">Description</a>
+          <a href ng-click="panel.selectTab(2)">Reviews</a>
+          <!-- Display Description -->
+          <section ng-show="panel.isSelected(1)">
+            <p>{{whiskey.description}}</p>
+          </section>
+          <!-- Display Reviews -->
+          <section ng-show="panel.isSelected(2)">
+            <blockquote ng-repeat="review in whiskey.reviews">
+              <p>{{review.quote}}</p>
+              <p>Stars: {{review.stars}}/5</p>
+              <cite>--{{review.author}}</cite>
+            </blockquote>
+
+            <!-- Form: user reviews -->
+            <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(whiskey)" novalidate>
+              <blockquote>
+                <p>{{reviewCtrl.review.quote}}</p>
+                <p>Stars: {{reviewCtrl.review.stars}}/5</p>
+                <cite>--{{reviewCtrl.review.author}}</cite>
+              </blockquote>
+
+              <select ng-model="reviewCtrl.review.stars" required>
+                <option value="1">1 star</option>
+                <option value="2">2 stars</option>
+                <option value="3">3 stars</option>
+                <option value="4">4 stars</option>
+                <option value="5">5 stars</option>
+              </select>
+              <br>
+              <textarea placeholder="Review this whiskey . . ." ng-model="reviewCtrl.review.quote" required></textarea>
+              <br>
+              <label for="name">By:</label>
+              <input name="name" type="text" placeholder="Name" ng-model="reviewCtrl.review.author" required>
+              <br>
+              <input type="submit" value="Submit review">
+            </form>
+          <section>
+        </section>
+      </article>
+    </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.15/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </body>
