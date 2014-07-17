@@ -1,0 +1,26 @@
+<!doctype html>
+<html ng-app='store'>
+  <head>
+    <title>Whiskey Store</title>
+  </head>
+  <body>
+    <h1>Whiskey Store</h1>
+    <h2>Mark's first Angular app</h2>
+    <article ng-controller="StoreController as store">
+      <section ng-repeat='whiskey in store.whiskeys'>
+        <h1>{{whiskey.name}}</h1>
+        <h2>{{whiskey.price | currency}}</h2>
+        <button ng-show='whiskey.canPurchase'>Buy now!</button>
+        <div ng-controller="PanelController as panel">
+          <a href ng-click="panel.selectTab(1)">Description</a>
+          <a href ng-click="panel.selectTab(2)">Review</a>
+          <p ng-show="panel.isSelected(1)">{{whiskey.description}}</p>
+          <p ng-show="panel.isSelected(2)">{{whiskey.review}}
+        </div>
+      </section
+
+    </article>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.15/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
