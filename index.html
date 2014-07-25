@@ -9,14 +9,23 @@
     <h2>Mark's first Angular app</h2>
     <div ng-controller="StoreController as store">
       <article ng-repeat='whiskey in store.whiskeys'>
+        <!-- Custom directive would go here -->
         <h1>{{whiskey.name}}</h1>
         <h2>{{whiskey.price | currency}}</h2>
+
         <button ng-show='whiskey.canPurchase'>Buy now!</button>
 
         <!-- "Panel" to display Description/reviews -->
+
+
         <section ng-controller="PanelController as panel">
+<!--           <product-panels>
+ -->
           <a href ng-click="panel.selectTab(1)">Description</a>
           <a href ng-click="panel.selectTab(2)">Reviews</a>
+
+
+
           <!-- Display Description -->
           <section ng-show="panel.isSelected(1)">
             <p>{{whiskey.description}}</p>

@@ -29,6 +29,22 @@
     };
   });
 
+  // Custom directives:
+  app.directive('whiskeyInfo', function() {
+    return {
+      restrict: 'E',
+      scope: {},
+      templateUrl: 'whiskey-info.html'
+    };
+  });
+
+  app.directive('productPanels', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'product-panels.html'
+    }
+  });
+
   // JS Objects:
   var whiskey = [
     {
