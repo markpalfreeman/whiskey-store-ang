@@ -1,0 +1,41 @@
+<section>
+  <a href ng-click="panel.selectTab(1)">Description</a>
+  <a href ng-click="panel.selectTab(2)">Reviews</a>
+
+  <!-- Display Description -->
+  <section ng-show="panel.isSelected(1)">
+    <p>{{whiskey.description}}</p>
+  </section>
+  <!-- Display Reviews -->
+  <section ng-show="panel.isSelected(2)">
+    <blockquote ng-repeat="review in whiskey.reviews">
+      <p>{{review.quote}}</p>
+      <p>Stars: {{review.stars}}/5</p>
+      <cite>--{{review.author}}</cite>
+    </blockquote>
+
+    <!-- Form: user reviews -->
+    <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(whiskey)" novalidate>
+      <blockquote>
+        <p>{{reviewCtrl.review.quote}}</p>
+        <p>Stars: {{reviewCtrl.review.stars}}/5</p>
+        <cite>--{{reviewCtrl.review.author}}</cite>
+      </blockquote>
+
+      <select ng-model="reviewCtrl.review.stars" required>
+        <option value="1">1 star</option>
+        <option value="2">2 stars</option>
+        <option value="3">3 stars</option>
+        <option value="4">4 stars</option>
+        <option value="5">5 stars</option>
+      </select>
+      <br>
+      <textarea placeholder="Review this whiskey . . ." ng-model="reviewCtrl.review.quote" required></textarea>
+      <br>
+      <label for="name">By:</label>
+      <input name="name" type="text" placeholder="Name" ng-model="reviewCtrl.review.author" required>
+      <br>
+      <input type="submit" value="Submit review">
+    </form>
+  </section>
+</section>

@@ -7,17 +7,17 @@
     this.whiskeys = whiskey;
   });
 
-  app.controller('PanelController', function() {
-    this.tab = 1;
+  // app.controller('PanelController', function() {
+  //   this.tab = 1;
 
-    this.selectTab = function(setTab) {
-      this.tab = setTab;
-    };
+  //   this.selectTab = function(setTab) {
+  //     this.tab = setTab;
+  //   };
 
-    this.isSelected = function(checkTab) {
-      return this.tab === checkTab;
-    };
-  });
+  //   this.isSelected = function(checkTab) {
+  //     return this.tab === checkTab;
+  //   };
+  // });
 
   app.controller('ReviewController', function() {
     this.review = {};
@@ -33,7 +33,6 @@
   app.directive('whiskeyInfo', function() {
     return {
       restrict: 'E',
-      scope: {},
       templateUrl: 'whiskey-info.html'
     };
   });
@@ -41,8 +40,20 @@
   app.directive('productPanels', function() {
     return {
       restrict: 'E',
-      templateUrl: 'product-panels.html'
-    }
+      templateUrl: 'product-panels.html',
+      controller:function(){
+        this.tab = 1;
+
+        this.selectTab = function(setTab) {
+          this.tab = setTab;
+        };
+
+        this.isSelected = function(checkTab) {
+          return this.tab === checkTab;
+        };
+      },
+      controllerAs: 'panel'
+    };
   });
 
   // JS Objects:
